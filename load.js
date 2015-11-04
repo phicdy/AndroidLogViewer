@@ -67,3 +67,45 @@ function isDebug(line) {
 	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\sD/;
 	return reg.test(line);
 }
+function clickVerbose(isChecked) {
+	var elements = document.getElementsByClassName('verbose');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function clickDebug(isChecked) {
+	var elements = document.getElementsByClassName('debug');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function clickInfo(isChecked) {
+	var elements = document.getElementsByClassName('info');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function clickWarn(isChecked) {
+	var elements = document.getElementsByClassName('warn');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function clickError(isChecked) {
+	var elements = document.getElementsByClassName('error');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function clickAssert(isChecked) {
+	var elements = document.getElementsByClassName('assert');
+	changeDisplayStyle(isChecked, elements);
+}
+
+function changeDisplayStyle(isShown, elements) {
+	if (isShown) {
+		for (i=0; i<elements.length; i++) {
+			elements[i].style.display = 'block';
+		}	
+	} else {
+		for (i=0; i<elements.length; i++) {
+			elements[i].style.display = 'none';
+		}	
+
+	}
+}	

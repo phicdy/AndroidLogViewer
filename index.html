@@ -9,6 +9,14 @@
 <body onload="onLoad()">
 	<div id="file_path"></div>
 	<button onclick="openLoadFile()">読み込み</button>
+	<div>
+		<input type="checkbox" name="verbose" checked="checked" onclick="clickVerbose(this.checked)">Verbose
+		<input type="checkbox" name="debug" checked="checked" onclick="clickDebug(this.checked)">Debug
+		<input type="checkbox" name="info" checked="checked" onclick="clickInfo(this.checked)">Info
+		<input type="checkbox" name="warn" checked="checked" onclick="clickWarn(this.checked)">Warn
+		<input type="checkbox" name="error" checked="checked" onclick="clickError(this.checked)">Error
+		<input type="checkbox" name="assert" checked="checked" onclick="clickAssert(this.checked)">Assert
+	</div>
 	<div id="main_content"></div>
 </body>
 </html>
