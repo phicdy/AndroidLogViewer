@@ -5,9 +5,7 @@ Android Log Viewer is a multi-platform log viewer for Android by Electron
 ## Development
 
 ```bash
-$ npm install electron-prebuilt -g
-$ git clone https://github.com/phicdy/android-log-viewer.git
-$ cd android-log-viewer
+$ npm install
 $ electron .
 ```
 
