@@ -3,13 +3,16 @@ var dialog = remote.require('dialog');
 var browserWindow = remote.require('browser-window');
 var fs = require('fs');
 var readLine = require('readline');
+var csv = require('comma-separated-values');
 
 var mainContent = null;
 var filePath = null;
+var colorSettings = null;
 
 function onLoad() {
 	mainContent = document.getElementById("main_content");
 	filePath = document.getElementById("file_path");
+	parseColorSettingsFile();
 }
 
 function openLoadFile() {
@@ -42,9 +45,15 @@ function readFile(path) {
 	var i = 0;
 	rl.on('line', function(line) {
 		var e = document.createElement('div');
-		e.textContent = ++i + ' ' + line.trim();
-		if (filterVerbose(line)) {
-			e.className = 'red';
+		e.innerHTML = '<b>' + ++i + '</b> ' + line.trim();
+		
+		setLogLevelClass(e, line);
+		if (colorSettings) {
+			colorSettings.forEach(function(object) {
+				if (isMatch(line, object.text)) {
+					e.style.color = object.color;
+				}
+			});
 		}
 		mainContent.appendChild(e);
 	});
@@ -56,17 +65,52 @@ function clearMainContent() {
 	}
 }
 
-function isVerbose(line) {
-	//10-28 16:14:18.375 V/
-	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\sV/;
+function setLogLevelClass(element, line) {
+	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\s(.)/;
+	var result = line.match(reg);
+	if (!result) {
+		return;
+	}
+	var logLevel = result[1];
+	switch (logLevel) {
+		case 'V':
+			element.className = 'verbose';
+			break;
+		case 'D':
+			element.className = 'debug';
+			break;
+		case 'I':
+			element.className = 'info';
+			break;
+		case 'W':
+			element.className = 'warn';
+			break;
+		case 'E':
+			element.className = 'error';
+			break;
+		case 'A':
+			element.className = 'assert';
+			break;
+	}
+}
+
+function isMatch(line, regText) {
+	var reg = new RegExp(regText);
 	return reg.test(line);
 }
 
-function isDebug(line) {
-	//10-28 16:14:18.375 D/
-	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\sD/;
-	return reg.test(line);
+function parseColorSettingsFile() {
+	fs.readFile('color_settings.txt', function (error, text) {
+		if (error != null) {
+		   alert('error: ' + error);
+		   return;
+		}	   
+		console.log(text.toString());
+		colorSettings = new csv(text.toString(), {header: true}).parse();
+		//console.log(colorSettings);
+	});
 }
+
 function clickVerbose(isChecked) {
 	var elements = document.getElementsByClassName('verbose');
 	changeDisplayStyle(isChecked, elements);
