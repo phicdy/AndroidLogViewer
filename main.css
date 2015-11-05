@@ -9,3 +9,13 @@
 .hide {
 	display:none;
 }
+
+#tag_list {
+	float: left;
+	width: 320px;
+}
+
+#main_content {
+	float: left;
+	width: 1024px;
+}

@@ -7,11 +7,14 @@ var csv = require('comma-separated-values');
 
 var mainContent = null;
 var filePath = null;
+var tagListElement = null;
 var colorSettings = null;
+var tagList = [];
 
 function onLoad() {
 	mainContent = document.getElementById("main_content");
 	filePath = document.getElementById("file_path");
+	tagListElement = document.getElementById("tag_list");
 	parseColorSettingsFile();
 }
 
@@ -48,6 +51,7 @@ function readFile(path) {
 		e.innerHTML = '<b>' + ++i + '</b> ' + line.trim();
 		
 		setLogLevelClass(e, line);
+		addLogTag(line);
 		if (colorSettings) {
 			colorSettings.forEach(function(object) {
 				if (isMatch(line, object.text)) {
@@ -91,6 +95,21 @@ function setLogLevelClass(element, line) {
 		case 'A':
 			element.className = 'assert';
 			break;
+	}
+}
+
+function addLogTag(line) {
+	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\s.\/(.*)\(\s\d+\)/;
+	var result = line.match(reg);
+	if (!result) {
+		return;
+	}
+	var tag = result[1];
+	if (tagList.indexOf(tag) < 0) {
+		tagList.push(tag);
+		var e = document.createElement('div');
+		e.innerHTML = tag;
+		tagListElement.appendChild(e);
 	}
 }
 
