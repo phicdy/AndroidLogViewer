@@ -1,0 +1,21 @@
+{
+  "name": "android-log-viewer",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "phicdy"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
