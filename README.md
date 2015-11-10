@@ -6,6 +6,7 @@ Android Log Viewer is a multi-platform log viewer for Android by Electron
 
 ```bash
 $ npm install
+$ node_modules/bower/bin/bower install
 $ electron .
 ```
 
