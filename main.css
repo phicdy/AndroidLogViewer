@@ -18,4 +18,5 @@
 #main_content {
 	float: left;
 	width: 1024px;
+	margin-left: 32px;
 }
