@@ -2,7 +2,8 @@ var remote = require('remote');
 var dialog = remote.require('dialog');
 var browserWindow = remote.require('browser-window');
 var fs = require('fs');
-var readLine = require('readline');
+var async = require('async');
+var readLine = require('readline')
 var csv = require('comma-separated-values');
 
 var mainContent = null;
@@ -43,23 +44,38 @@ function openLoadFile() {
 function readFile(path) {
 	filePath.innerHTML = path;
 	clearMainContent();
-	rs = fs.ReadStream(path);
-	rl = readLine.createInterface({input:rs, output:{}});
-	var i = 0;
-	rl.on('line', function(line) {
-		var e = document.createElement('div');
-		e.innerHTML = '<b>' + ++i + '</b> ' + line.trim();
-		
-		setLogLevelClass(e, line);
+
+	// Log log tag list
+	async.forEachSeries(fs.readFileSync(path).toString().split('\n'), function(line, callback) {
 		addLogTag(line);
-		if (colorSettings) {
-			colorSettings.forEach(function(object) {
-				if (isMatch(line, object.text)) {
-					e.style.color = object.color;
+		callback();
+	}, function(error) {
+		if(error) { 
+			console.log('A file failed to process');
+		} else {
+			console.log('All files have been processed successfully');
+			sortLogTag();
+			appendChildLogTag();
+
+			// Load line
+			rs = fs.ReadStream(path);
+			rl = readLine.createInterface({input:rs, output:{}});
+			var lineNum = 0;
+			rl.on('line', function(line) {
+				var e = document.createElement('div');
+				e.innerHTML = '<b>' + ++lineNum + '</b> ' + line.trim();
+
+				setLogLevelClass(e, line);
+				if (colorSettings) {
+					colorSettings.forEach(function(object) {
+						if (isMatch(line, object.text)) {
+							e.style.color = object.color;
+						}
+					});
 				}
+				mainContent.appendChild(e);
 			});
 		}
-		mainContent.appendChild(e);
 	});
 }
 
@@ -107,8 +123,24 @@ function addLogTag(line) {
 	var tag = result[1];
 	if (tagList.indexOf(tag) < 0) {
 		tagList.push(tag);
+	}
+}
+
+function sortLogTag() {
+	if (!tagList) {
+		return;
+	}
+	tagList.sort(function(a,b) {
+		if ( a < b) return -1;
+		if ( a > b) return 1;
+		return 0;
+	});
+}
+
+function appendChildLogTag() {
+	for (i=0; i<tagList.length; i++) {
 		var e = document.createElement('div');
-		e.innerHTML = tag;
+		e.innerHTML = tagList[i];
 		tagListElement.appendChild(e);
 	}
 }
