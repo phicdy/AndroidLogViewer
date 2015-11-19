@@ -5,6 +5,7 @@ var fs = require('fs');
 var async = require('async');
 var readLine = require('readline')
 var csv = require('comma-separated-values');
+var childProcess = require('child_process');
 
 var mainContent = null;
 var filePath = null;
@@ -275,3 +276,33 @@ function clickAllLogTag(isChecked) {
 	changeDisplayStyle(isChecked, mainContentElement.childNodes);
 }
 
+function getLogFromLogcat() {
+	// Clear
+	clearMainContent();
+	clearTagList();
+
+	// Delete temp file
+	var tempFileName = 'logcat_temp.txt';
+	fs.unlink(tempFileName, function (err) {
+		if (err) throw err;
+		console.log('successfully delete');
+	});
+
+	// Start logcat process
+	var logcatPs = childProcess.spawn('adb', ['logcat', '-v','time'], {detached: true});
+	logcatPs.stdout.on('data', function(data) {
+		var line = data.toString();
+		console.log(line);	
+		fs.appendFileSync(tempFileName, line, 'utf8');
+	});
+	console.log(logcatPs);
+
+	// Read logcat file after a few interval
+	var timerId = setInterval(function() {
+		// Stop logcat process
+		process.kill(-logcatPs.pid);
+		// Read logcat output from file
+		readFile(tempFileName);
+		clearInterval(timerId);	
+	}, 3000);
+}

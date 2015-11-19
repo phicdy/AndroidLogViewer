@@ -12,6 +12,7 @@
 <body onload="onLoad()">
 	<div id="file_path"></div>
 	<button onclick="openLoadFile()">読み込み</button>
+	<button onclick="getLogFromLogcat()">adb logcat -v time</button>
 	<div id="log_level_list">
 		<input type="checkbox" name="verbose" checked="checked" onclick="clickVerbose(this.checked)">Verbose
 		<input type="checkbox" name="debug" checked="checked" onclick="clickDebug(this.checked)">Debug
