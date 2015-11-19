@@ -169,7 +169,39 @@ function sortLogTag() {
 function appendChildLogTag() {
 	for (i=0; i<tagList.length; i++) {
 		var e = document.createElement('div');
-		e.innerHTML = tagList[i];
+		e.className = 'log_tag';
+		var checkBox = document.createElement('input');
+		checkBox.className = 'log_tag_checkbox';
+		checkBox.type = 'checkbox';
+		checkBox.checked = 'checked';
+		checkBox.onclick = function(i) {
+			return function() {
+				console.log('checkbox is clicked');	
+				var elements = document.getElementsByClassName(tagList[i]);
+				changeDisplayStyle(this.checked, elements);
+			}
+		}(i);
+		e.appendChild(checkBox);
+
+		// Split element from top div to set onclick to change hide/show status by clicking log tag text 
+		var text = document.createElement('span');
+		text.onclick = function(i, checkBox) {
+			return function() {
+				console.log('log tag text is clicked');	
+				// Change checkbox status
+				checkBox.checked = !checkBox.checked;
+				var elements = document.getElementsByClassName(tagList[i]);
+				changeDisplayStyle(checkBox.checked, elements);
+			}
+		}(i, checkBox);
+		var str = document.createTextNode(tagList[i]);
+		text.appendChild(str);
+		e.appendChild(text);
+
+		// Apply color setting
+		applyColorSetting(tagList[i], e);
+
+		// Add element
 		tagListElement.appendChild(e);
 	}
 }
