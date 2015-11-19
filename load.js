@@ -44,6 +44,7 @@ function openLoadFile() {
 function readFile(path) {
 	filePath.innerHTML = path;
 	clearMainContent();
+	clearTagList();
 
 	// Log log tag list
 	async.forEachSeries(fs.readFileSync(path).toString().split('\n'), function(line, callback) {
@@ -82,6 +83,13 @@ function readFile(path) {
 function clearMainContent() {
 	while (mainContent.firstChild) {
 		mainContent.removeChild(mainContent.firstChild);
+	}
+}
+
+function clearTagList() {
+	tagList = [];
+	while (tagListElement.firstChild) {
+		tagListElement.removeChild(tagListElement.firstChild);
 	}
 }
 
