@@ -67,6 +67,7 @@ function readFile(path) {
 				e.innerHTML = '<b>' + ++lineNum + '</b> ' + line.trim();
 
 				setLogLevelClass(e, line);
+				setLogTagClass(e, line);
 				applyColorSetting(line, e);
 				mainContent.appendChild(e);
 			});
@@ -124,6 +125,17 @@ function setLogLevelClass(element, line) {
 			element.className = 'assert';
 			break;
 	}
+}
+
+function setLogTagClass(element, line) {
+	var tag = getLogTag(line);
+	if (!tag) return;
+	if (element.className) {
+		element.className = element.className + ' ' + tag;
+	}else {
+		element.className = tag;
+	}
+
 }
 
 function addLogTag(line) {
