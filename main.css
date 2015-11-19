@@ -15,6 +15,11 @@ html {
 }
 
 #log_level_list {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	font-size: 16px;
+}
+
 	float: left;
 	width: 320px;
 }
