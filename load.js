@@ -67,13 +67,7 @@ function readFile(path) {
 				e.innerHTML = '<b>' + ++lineNum + '</b> ' + line.trim();
 
 				setLogLevelClass(e, line);
-				if (colorSettings) {
-					colorSettings.forEach(function(object) {
-						if (isMatch(line, object.text)) {
-							e.style.color = object.color;
-						}
-					});
-				}
+				applyColorSetting(line, e);
 				mainContent.appendChild(e);
 			});
 		}
@@ -92,6 +86,16 @@ function clearTagList() {
 		tagListElement.removeChild(tagListElement.firstChild);
 	}
 }
+
+function applyColorSetting(line, element) {
+	if (colorSettings) {
+		colorSettings.forEach(function(object) {
+			if (isMatch(line, object.text)) {
+				element.style.color = object.color;
+			}
+		});
+	}
+}	
 
 function setLogLevelClass(element, line) {
 	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\s(.)/;
