@@ -139,15 +139,20 @@ function setLogTagClass(element, line) {
 }
 
 function addLogTag(line) {
-	var reg = /\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\s.\/(.*)\(\s\d+\)/;
+	var tag = getLogTag(line);
+	var isEmpty = /^\s*$/.test(tag);
+	if (typeof tag !== 'undefined' && !isEmpty && tagList.indexOf(tag) < 0) {
+		tagList.push(tag);
+	}
+}
+
+function getLogTag(line) {
+	var reg = /^\d\d-\d\d\s\d\d:\d\d:\d\d\.\d\d\d\s[V|D|I|W|E|A]\/(.*)\(\s*\d+\):/;
 	var result = line.match(reg);
 	if (!result) {
 		return;
 	}
-	var tag = result[1];
-	if (tagList.indexOf(tag) < 0) {
-		tagList.push(tag);
-	}
+	return result[1];
 }
 
 function sortLogTag() {
