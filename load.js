@@ -265,3 +265,13 @@ function changeDisplayStyle(isShown, elements) {
 
 	}
 }	
+
+function clickAllLogTag(isChecked) {
+	var checkboxElements = document.getElementsByClassName('log_tag_checkbox');
+	for (i=0; i<checkboxElements.length; i++) {
+		checkboxElements[i].checked = isChecked;
+	}	
+	var mainContentElement = document.getElementById('main_content');
+	changeDisplayStyle(isChecked, mainContentElement.childNodes);
+}
+
