@@ -1,2 +1,5 @@
 text,color
-ActivityManager,#ff0000
+System.err, #ff0000
+ActivityManager, #a4c639
+WindowManager, #a4c639
+dalvikvm, #a4c639
