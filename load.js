@@ -15,7 +15,7 @@ var tagList = [];
 function onLoad() {
 	mainContent = document.getElementById("main_content");
 	filePath = document.getElementById("file_path");
-	tagListElement = document.getElementById("tag_list");
+	tagListElement = document.getElementById("log_tag_list");
 	parseColorSettingsFile();
 }
 
