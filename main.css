@@ -27,6 +27,7 @@ html {
 #log_tag_list {
 	float: left;
 	font-size: 16px;
+	word-break: break-all;
 }
 
 #all_log_tag_check {
