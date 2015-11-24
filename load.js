@@ -304,3 +304,7 @@ function getLogFromLogcat() {
 		clearInterval(timerId);	
 	}, 3000);
 }
+
+function clearLogcat() {
+	childProcess.spawn('adb', ['logcat', '-c'], {detached: true});
+}
