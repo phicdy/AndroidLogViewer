@@ -8,14 +8,12 @@ var csv = require('comma-separated-values');
 var childProcess = require('child_process');
 
 var mainContent = null;
-var filePath = null;
 var tagListElement = null;
 var colorSettings = null;
 var tagList = [];
 
 function onLoad() {
 	mainContent = document.getElementById("main_content");
-	filePath = document.getElementById("file_path");
 	tagListElement = document.getElementById("log_tag_list");
 	parseColorSettingsFile();
 }
@@ -43,7 +41,7 @@ function openLoadFile() {
 }
 
 function readFile(path) {
-	filePath.innerHTML = path;
+	document.getElementsByTagName('title')[0].innerHTML = path;
 	clearMainContent();
 	clearTagList();
 
