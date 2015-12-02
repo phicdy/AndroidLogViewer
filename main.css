@@ -38,6 +38,7 @@ html {
 #main_content {
 	float: left;
 	margin-left: 32px;
+	word-break: break-all;
 	overflow: scroll;
 }
 
