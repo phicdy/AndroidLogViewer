@@ -28,6 +28,7 @@ html {
 	float: left;
 	font-size: 16px;
 	word-break: break-all;
+	overflow: scroll;
 }
 
 #all_log_tag_check {
@@ -37,6 +38,7 @@ html {
 #main_content {
 	float: left;
 	margin-left: 32px;
+	overflow: scroll;
 }
 
 .warn {
