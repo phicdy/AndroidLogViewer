@@ -70,6 +70,7 @@ function readFile(path) {
 				applyColorSetting(line, e);
 				mainContent.appendChild(e);
 			});
+			mainContent.style.visibility = 'visible';
 		}
 	});
 }
