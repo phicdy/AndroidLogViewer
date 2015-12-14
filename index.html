@@ -10,33 +10,29 @@
 	<script type="text/javascript" src="load.js"></script>
 </head>
 <body onload="onLoad()">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<button type="button" class="btn btn-primary" onclick="openLoadFile()">読み込み</button>
-				<button type="button" class="btn btn-primary" onclick="getLogFromLogcat()">adb logcat -v time</button>
-				<button type="button" class="btn btn-primary" onclick="clearLogcat()">adb logcat -c</button>
-			</div>
-			<div class="col-lg-12">
-				<div id="log_level_list">
-					<input type="checkbox" name="verbose" checked="checked" onclick="clickVerbose(this.checked)">Verbose
-					<input type="checkbox" name="debug" checked="checked" onclick="clickDebug(this.checked)">Debug
-					<input type="checkbox" name="info" checked="checked" onclick="clickInfo(this.checked)">Info
-					<input type="checkbox" name="warn" checked="checked" onclick="clickWarn(this.checked)">Warn
-					<input type="checkbox" name="error" checked="checked" onclick="clickError(this.checked)">Error
-					<input type="checkbox" name="assert" checked="checked" onclick="clickAssert(this.checked)">Assert
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div id="all_log_tag_check">
-					<input type="checkbox" name="check_all_log_tag" checked="checked" onclick="clickAllLogTag(this.checked)">タグ全選択
-				</div>
-				<div id="log_tag_list"></div>
-			</div>
-			<div class="col-lg-9">
-				<div id="main_content"></div>
-			</div>
-		</div>
+<div>
+	<button type="button" class="btn btn-primary" onclick="openLoadFile()">読み込み</button>
+	<button type="button" class="btn btn-primary" onclick="getLogFromLogcat()">adb logcat -v time</button>
+	<button type="button" class="btn btn-primary" onclick="clearLogcat()">adb logcat -c</button>
+</div>
+<div>
+	<div id="log_level_list">
+		<input type="checkbox" name="verbose" checked="checked" onclick="clickVerbose(this.checked)">Verbose
+		<input type="checkbox" name="debug" checked="checked" onclick="clickDebug(this.checked)">Debug
+		<input type="checkbox" name="info" checked="checked" onclick="clickInfo(this.checked)">Info
+		<input type="checkbox" name="warn" checked="checked" onclick="clickWarn(this.checked)">Warn
+		<input type="checkbox" name="error" checked="checked" onclick="clickError(this.checked)">Error
+		<input type="checkbox" name="assert" checked="checked" onclick="clickAssert(this.checked)">Assert
 	</div>
+</div>
+<div>
+	<div id="all_log_tag_check">
+		<input type="checkbox" name="check_all_log_tag" checked="checked" onclick="clickAllLogTag(this.checked)">タグ全選択
+	</div>
+	</div>
+</div>
+<div>
+	<div id="main_content"></div>
+</div>
 </body>
 </html>
