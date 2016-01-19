@@ -12,6 +12,8 @@ var tagListElement = null;
 var colorSettings = null;
 var tagList = [];
 
+var tempFileName = 'logcat_temp.txt';
+
 function onLoad() {
 	mainContent = document.getElementById("main_content");
 	tagListElement = document.getElementById("log_tag_list");
@@ -41,7 +43,9 @@ function openLoadFile() {
 }
 
 function readFile(path) {
-	document.getElementsByTagName('title')[0].innerHTML = path;
+	if (path != tempFileName) {
+		setTitle(path);
+	}
 	clearMainContent();
 	clearTagList();
 
@@ -281,7 +285,6 @@ function getLogFromLogcat() {
 	clearTagList();
 
 	// Delete temp file
-	var tempFileName = 'logcat_temp.txt';
 	fs.unlink(tempFileName, function (err) {
 		if (err) throw err;
 		console.log('successfully delete');
@@ -308,4 +311,8 @@ function getLogFromLogcat() {
 
 function clearLogcat() {
 	childProcess.spawn('adb', ['logcat', '-c'], {detached: true});
+}
+
+function setTitle(title) {
+	document.getElementsByTagName('title')[0].innerHTML = title;
 }
