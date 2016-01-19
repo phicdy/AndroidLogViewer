@@ -9,6 +9,7 @@ var childProcess = require('child_process');
 
 var mainContent = null;
 var tagListElement = null;
+var allTagCheckBox = null;
 var colorSettings = null;
 var tagList = [];
 
@@ -17,6 +18,7 @@ var tempFileName = 'logcat_temp.txt';
 function onLoad() {
 	mainContent = document.getElementById("main_content");
 	tagListElement = document.getElementById("log_tag_list");
+	allTagCheckBox = document.getElementById('check_all_log_tag');
 	parseColorSettingsFile();
 }
 
@@ -90,6 +92,7 @@ function clearTagList() {
 	while (tagListElement.firstChild) {
 		tagListElement.removeChild(tagListElement.firstChild);
 	}
+	allTagCheckBox.checked = 'checked';
 }
 
 function applyColorSetting(line, element) {
